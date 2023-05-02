@@ -2,6 +2,8 @@
 
 ![build](https://github.com/gabrielpadilh4/ssl-handshake-debugger/actions/workflows/maven.yml/badge.svg)
 
+Built with JDK 11 using Maven.
+
 A very simple java command line application to show ssl and handshake logs from jvm.
 
 ```sh
@@ -13,8 +15,8 @@ Options:
   -h, --help     Display help information
 ```
 
-It was built using Java JDK 11+ and Maven.
+Command output example:
+
+[See here](https://gist.github.com/gabrielpadilh4/bb53c94cdf578190a77b73cc6c323875#file-ssl-handshake-example-output-log)
 
 Feel free to contribute.
-
-[Here is a example of the output](https://gist.github.com/gabrielpadilh4/bb53c94cdf578190a77b73cc6c323875#file-ssl-handshake-example-output-log)
