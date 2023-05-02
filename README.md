@@ -14,3 +14,5 @@ Options:
 It was built using Java JDK 11+ and Maven.
 
 Feel free to contribute.
+
+[Here is a example of the output](https://gist.github.com/gabrielpadilh4/bb53c94cdf578190a77b73cc6c323875#file-ssl-handshake-example-output-log)
