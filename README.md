@@ -1,5 +1,7 @@
 # SSL Handshake Debugger
 
+![build](https://github.com/gabrielpadilh4/ssl-handshake-debugger/actions/workflows/maven.yml/badge.svg)
+
 A very simple java command line application to show ssl and handshake logs from jvm.
 
 ```sh
