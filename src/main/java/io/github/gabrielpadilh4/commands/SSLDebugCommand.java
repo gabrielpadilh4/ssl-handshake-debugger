@@ -64,8 +64,8 @@ public class SSLDebugCommand {
 
     public static void printHelp() {
         System.out.println("Options:");
-        System.out.println("  -u, --url      Url to be called for https ssl handshake (it has to start with https://)");
-        System.out.println("  -f, --filename Filename to write the output of ssl handshake log");
+        System.out.println("  -u, --url      Url to be called for https ssl handshake debug log (it has to start with https://)");
+        System.out.println("  -f, --filename Redirects debug log output to a file");
         System.out.println("  -h, --help     Display help information");
     }
 
