@@ -10,8 +10,8 @@ A very simple java command line application to show ssl and handshake logs from 
  $ java -jar ssl-handshake-debugger-1.0-SNAPSHOT.jar
 ********** SSL HANDSHAKE - DEBUGGER **********
 Options:
-  -u, --url      Url to be called for https handshake ssl debug
-  -f, --filename Filename to write the output of ssl handshake logs
+  -u, --url      Url to be called for https ssl handshake debug log
+  -f, --filename Redirects debug log output to a file
   -h, --help     Display help information
 ```
 
