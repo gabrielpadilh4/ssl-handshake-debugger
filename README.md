@@ -3,7 +3,7 @@
 A very simple java command line application to show ssl and handshake logs from jvm.
 
 ```sh
- $ java -jar target/ssl-handshake-debugger-1.0-SNAPSHOT.jar
+ $ java -jar ssl-handshake-debugger-1.0-SNAPSHOT.jar
 ********** SSL HANDSHAKE - DEBUGGER **********
 Options:
   -u, --url      Url to be called for https handshake ssl debug
