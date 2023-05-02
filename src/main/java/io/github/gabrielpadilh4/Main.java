@@ -1,8 +1,8 @@
 package io.github.gabrielpadilh4;
 
-import io.github.gabrielpadilh4.exception.InvalidUrlException;
-import io.github.gabrielpadilh4.exception.MissingArgumentException;
-import io.github.gabrielpadilh4.service.SSLService;
+import io.github.gabrielpadilh4.exceptions.InvalidUrlException;
+import io.github.gabrielpadilh4.exceptions.MissingArgumentException;
+import io.github.gabrielpadilh4.services.SSLService;
 
 public class Main {
 

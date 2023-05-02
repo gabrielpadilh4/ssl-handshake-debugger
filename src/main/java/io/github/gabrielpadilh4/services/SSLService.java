@@ -1,6 +1,6 @@
-package io.github.gabrielpadilh4.service;
+package io.github.gabrielpadilh4.services;
 
-import io.github.gabrielpadilh4.exception.InvalidUrlException;
+import io.github.gabrielpadilh4.exceptions.InvalidUrlException;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.File;
