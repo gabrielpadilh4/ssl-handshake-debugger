@@ -1,19 +1,16 @@
 package io.github.gabrielpadilh4.services;
 
 import io.github.gabrielpadilh4.exceptions.InvalidUrlException;
-import io.github.gabrielpadilh4.models.CommandLineSSL;
-import org.slf4j.LoggerFactory;
+import io.github.gabrielpadilh4.models.SslCliParams;
+import io.github.gabrielpadilh4.utils.LoggerUtil;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.File;
 import java.io.PrintStream;
-import java.net.Socket;
 import java.net.URL;
 import java.security.cert.X509Certificate;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
@@ -33,19 +30,18 @@ public class SSLService {
         }
     }
 
-    public static void logSSLHandshake(CommandLineSSL commandLineSSL) {
+    public static void logSSLHandshake(SslCliParams sslCliParams) {
         try {
 
             System.setProperty("javax.net.debug", "ssl:handshake");
 
-            if (!commandLineSSL.getFileName().isBlank()) {
-                File file = new File(commandLineSSL.getFileName());
+            if (!sslCliParams.getFileName().isBlank()) {
+                File file = new File(sslCliParams.getFileName());
                 PrintStream stream = new PrintStream(file);
                 System.setErr(stream);
-                System.err.println("********** SSL HANDSHAKE - DEBUGGER **********\n");
             }
 
-            URL url = new URL(commandLineSSL.getUrl());
+            URL url = new URL(sslCliParams.getUrl());
             SSLSocketFactory sslSocketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
 
             SSLSocket socket = (SSLSocket) sslSocketFactory.createSocket(url.getHost(), url.getDefaultPort());
@@ -54,29 +50,19 @@ public class SSLService {
             X509Certificate[] peerCertificates = (X509Certificate[]) session.getPeerCertificates();
             String protocolVersion = session.getProtocol();
 
-            if (!commandLineSSL.getFileName().isBlank()) {
-                System.err.printf("Cipher suite: %s\n", cipherSuite);
-                System.err.printf("Protocol version: %s\n", protocolVersion);
-                System.err.print("Peer certificates:\n");
-                for (X509Certificate cert : peerCertificates) {
-                    System.err.printf("- Subject: %s\n", cert.getSubjectDN().getName());
-                    System.err.printf("  Issuer: %s\n", cert.getIssuerDN().getName());
-                    System.err.printf("  Valid from: %s\n", cert.getNotBefore().toString());
-                    System.err.printf("  Valid until: %s\n", cert.getNotAfter().toString());
-                }
-            }
-
-            System.out.printf("Cipher suite: %s\n", cipherSuite);
-            System.out.printf("Protocol version: %s\n", protocolVersion);
-            System.out.print("Peer certificates:\n");
-            for (X509Certificate cert : peerCertificates) {
-                System.out.printf("- Subject: %s\n", cert.getSubjectDN().getName());
-                System.out.printf("  Issuer: %s\n", cert.getIssuerDN().getName());
-                System.out.printf("  Valid from: %s\n", cert.getNotBefore().toString());
-                System.out.printf("  Valid until: %s\n", cert.getNotAfter().toString());
-            }
-
             socket.close();
+
+            LoggerUtil.LOG("--------------------");
+            LoggerUtil.LOG(String.format("Cipher suite: %s", cipherSuite));
+            LoggerUtil.LOG(String.format("Protocol version: %s", protocolVersion));
+            LoggerUtil.LOG("Peer certificates:");
+            for (X509Certificate cert : peerCertificates) {
+                LoggerUtil.LOG(String.format("- Subject: %s", cert.getSubjectDN().getName()));
+                LoggerUtil.LOG(String.format("  Issuer: %s", cert.getIssuerDN().getName()));
+                LoggerUtil.LOG(String.format("  Valid from: %s", cert.getNotBefore().toString()));
+                LoggerUtil.LOG(String.format("  Valid until: %s", cert.getNotAfter().toString()));
+            }
+            LoggerUtil.LOG("--------------------");
 
         } catch (Exception e) {
             e.printStackTrace();

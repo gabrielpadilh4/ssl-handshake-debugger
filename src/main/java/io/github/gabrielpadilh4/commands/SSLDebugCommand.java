@@ -2,8 +2,9 @@ package io.github.gabrielpadilh4.commands;
 
 import io.github.gabrielpadilh4.exceptions.InvalidUrlException;
 import io.github.gabrielpadilh4.exceptions.MissingArgumentException;
-import io.github.gabrielpadilh4.models.CommandLineSSL;
+import io.github.gabrielpadilh4.models.SslCliParams;
 import io.github.gabrielpadilh4.services.SSLService;
+import io.github.gabrielpadilh4.utils.LoggerUtil;
 
 /**
  * @author gabrielpadilhasantos@gmail.com
@@ -16,7 +17,7 @@ public class SSLDebugCommand {
 
             System.out.println("********** SSL HANDSHAKE - DEBUGGER **********");
 
-            CommandLineSSL commandLineSSL = new CommandLineSSL();
+            SslCliParams sslCliParams = new SslCliParams();
 
             if (args.length == 0) {
                 printHelp();
@@ -34,8 +35,8 @@ public class SSLDebugCommand {
                     try {
                         String url = args[++i];
                         SSLService.validateHttpsUrl(url);
-                        commandLineSSL.setUrl(url);
-                        commandLineSSL.setEnable(true);
+                        sslCliParams.setUrl(url);
+                        sslCliParams.setEnable(true);
                     } catch (IndexOutOfBoundsException e) {
                         throw new MissingArgumentException("Missing argument for option -u, --url");
                     } catch (InvalidUrlException e) {
@@ -46,15 +47,15 @@ public class SSLDebugCommand {
                 if (argument.equals("-f") || argument.equals("--filename")) {
                     try {
                         String fileName = args[++i];
-                        commandLineSSL.setFileName(fileName);
+                        sslCliParams.setFileName(fileName);
                     } catch (IndexOutOfBoundsException e) {
                         throw new MissingArgumentException("Missing argument for option -f, --file");
                     }
                 }
             }
 
-            if (commandLineSSL.isEnabled()) {
-                SSLService.logSSLHandshake(commandLineSSL);
+            if (sslCliParams.isEnabled()) {
+                SSLService.logSSLHandshake(sslCliParams);
             }
 
         } catch (Exception e) {

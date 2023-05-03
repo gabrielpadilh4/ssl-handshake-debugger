@@ -3,12 +3,12 @@ package io.github.gabrielpadilh4.models;
 /**
  * @author gabrielpadilhasantos@gmail.com
  */
-public class CommandLineSSL {
+public class SslCliParams {
     private String url;
     private String fileName;
     private boolean enable;
 
-    public CommandLineSSL() {
+    public SslCliParams() {
         this.url = "";
         this.fileName = "";
         this.enable = false;
