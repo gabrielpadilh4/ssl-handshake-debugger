@@ -33,7 +33,7 @@ public class SSLService {
     public static void logSSLHandshake(SslCliParams sslCliParams) {
         try {
 
-            System.setProperty("javax.net.debug", "ssl:handshake");
+            System.setProperty("javax.net.debug", "ssl:handshake:verbose");
 
             if (!sslCliParams.getFileName().isBlank()) {
                 File file = new File(sslCliParams.getFileName());
