@@ -4,7 +4,6 @@ import io.github.gabrielpadilh4.exceptions.InvalidUrlException;
 import io.github.gabrielpadilh4.exceptions.MissingArgumentException;
 import io.github.gabrielpadilh4.models.SslCliParams;
 import io.github.gabrielpadilh4.services.SSLService;
-import io.github.gabrielpadilh4.utils.LoggerUtil;
 
 /**
  * @author gabrielpadilhasantos@gmail.com
@@ -52,6 +51,10 @@ public class SSLDebugCommand {
                         throw new MissingArgumentException("Missing argument for option -f, --file");
                     }
                 }
+
+                if (argument.equals("-a") || argument.equals("--all")) {
+                    sslCliParams.setAllDebug(true);
+                }
             }
 
             if (sslCliParams.isEnabled()) {
@@ -64,9 +67,12 @@ public class SSLDebugCommand {
     }
 
     public static void printHelp() {
+        System.out.println("For default, the program uses ssl:handshake:verbose value for javax.net.debug");
         System.out.println("Options:");
-        System.out.println("  -u, --url      Url to be called for https ssl handshake debug log (it has to start with https://)");
+        System.out.println(
+                "  -u, --url      Url to be called for https ssl handshake debug log (it has to start with https://)");
         System.out.println("  -f, --filename Redirects debug log output to a file");
+        System.out.println("  -a, --all      Enable all debugging, this will display a very verbose output");
         System.out.println("  -h, --help     Display help information");
     }
 

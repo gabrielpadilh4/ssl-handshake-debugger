@@ -11,29 +11,30 @@ import java.io.File;
 import java.io.PrintStream;
 import java.net.URL;
 import java.security.cert.X509Certificate;
-import java.util.regex.Pattern;
 
 /**
  * @author gabrielpadilhasantos@gmail.com
  */
 public class SSLService {
 
-    private final static String URL_PATTERN = "^(https):\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$";
+    private final static String URL_PATTERN = "https://";
 
     public static void validateHttpsUrl(String url) throws InvalidUrlException {
-        boolean isMatch = Pattern.compile(URL_PATTERN)
-                .matcher(url)
-                .find();
-
+        boolean isMatch = url.startsWith(URL_PATTERN);
         if (!isMatch) {
-            throw new InvalidUrlException(String.format("Value %s is invalid for URL. It must have to start with https://", url));
+            throw new InvalidUrlException(
+                    String.format("Value %s is invalid for URL. It must have to start with https://", url));
         }
     }
 
     public static void logSSLHandshake(SslCliParams sslCliParams) {
         try {
 
-            System.setProperty("javax.net.debug", "ssl:handshake:verbose");
+            if (sslCliParams.isAllDebug()) {
+                System.setProperty("javax.net.debug", "all");
+            } else {
+                System.setProperty("javax.net.debug", "ssl:handshake:verbose");
+            }
 
             if (!sslCliParams.getFileName().isBlank()) {
                 File file = new File(sslCliParams.getFileName());
