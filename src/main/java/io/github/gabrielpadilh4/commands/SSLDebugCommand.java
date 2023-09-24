@@ -69,8 +69,7 @@ public class SSLDebugCommand {
     public static void printHelp() {
         System.out.println("For default, the program uses ssl:handshake:verbose value for javax.net.debug");
         System.out.println("Options:");
-        System.out.println(
-                "  -u, --url      Url to be called for https ssl handshake debug log (it has to start with https://)");
+        System.out.println("  -u, --url      Url to be called for https ssl handshake debug log (it has to start with https://)");
         System.out.println("  -f, --filename Redirects debug log output to a file");
         System.out.println("  -a, --all      Enable all debugging, this will display a very verbose output");
         System.out.println("  -h, --help     Display help information");
