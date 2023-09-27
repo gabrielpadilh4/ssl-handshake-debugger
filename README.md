@@ -11,9 +11,9 @@ A very simple java command line application to show ssl and handshake logs from 
 ********** SSL HANDSHAKE - DEBUGGER **********
 For default, the program uses ssl:handshake:verbose value for javax.net.debug
 Options:
-  -u, --url      Url to be called for https ssl handshake debug log (it has to start with https://)
+  -s, --server   (Required)Server or Ip Address with the port(default 443) to be tested for ssl handshake (e.g example:8443 / 127.0.0.1:2100 / google.com)
   -f, --filename Redirects debug log output to a file
-  -a, --all      Enable all debugging, this will display a very verbose output
+  -a, --all      Enable all debugging log javax.net.debug=all
   -h, --help     Display help information
 ```
 

@@ -4,24 +4,25 @@ package io.github.gabrielpadilh4.models;
  * @author gabrielpadilhasantos@gmail.com
  */
 public class SslCliParams {
-    private String url;
+
+    private String server;
     private String fileName;
     private boolean allDebug;
     private boolean enable;
 
     public SslCliParams() {
-        this.url = "";
+        this.server = "";
         this.fileName = "";
         this.enable = false;
         this.allDebug = false;
     }
 
-    public String getUrl() {
-        return url;
+    public String getServer() {
+        return server;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setServer(String server) {
+        this.server = server;
     }
 
     public String getFileName() {
