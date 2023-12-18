@@ -1,13 +1,28 @@
 package io.github.gabrielpadilh4.services;
 
+import io.github.gabrielpadilh4.commands.SSLDebugCommand;
 import io.github.gabrielpadilh4.models.Server;
 import io.github.gabrielpadilh4.models.SslCliParams;
 
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 /**
  * @author gabrielpadilhasantos@gmail.com
@@ -47,16 +62,77 @@ public class SSLService {
         return new Server(serverName, serverPort);
     }
 
+    private static void openClientSocket(Server serverToBeCalled) throws IOException {
+        SSLSocket socket = (SSLSocket) SSLSocketFactory.getDefault().createSocket();
+        socket.setSoTimeout(DEFAULT_SOCKET_TIMEOUT_MILLIS);
+        socket.connect(
+                new InetSocketAddress(serverToBeCalled.getServerName(), serverToBeCalled.getServerPort()),
+                DEFAULT_SOCKET_TIMEOUT_MILLIS);
+        socket.startHandshake();
+        socket.close();
+    }
+
+    private static void openServerSocket(Server serverListener) throws IOException {
+
+        /*
+         * TODO - Get the keystore from command line parameters, otherwise use the
+         * default keystore
+         */
+
+        Path temp = Files.createTempDirectory("app");
+        Files.copy(SSLDebugCommand.class.getResourceAsStream("/server.keystore"), temp, StandardCopyOption.REPLACE_EXISTING);
+
+        //String keyStorePath = SSLDebugCommand.class.getResource("/server.keystore").getPath();
+        String keyStorePath = temp.toFile().getAbsolutePath();
+        System.setProperty("javax.net.ssl.keyStore", keyStorePath);
+        System.setProperty("javax.net.ssl.keyStorePassword", "password");
+
+        ServerSocketFactory factory = SSLServerSocketFactory.getDefault();
+        InetAddress bindAddress = InetAddress.getByName(serverListener.getServerName());
+
+        try (SSLServerSocket listener = (SSLServerSocket) factory.createServerSocket(serverListener.getServerPort(), 5,
+                bindAddress)) {
+
+            /*
+             * TODO -
+             * Get a list of enabled cipher suites from the command line
+             * otherwise, use default cipher suites
+             */
+
+            /*
+             * TODO -
+             * Get a list of enabled SSL/TLS protocols, otherwise, use default protocols
+             */
+
+            try (Socket socket = listener.accept()) {
+                InputStream inputStream = socket.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String request = null;
+                while ((request = bufferedReader.readLine()) != null) {
+                    System.out.println(request);
+                    System.out.flush();
+                }
+            }
+
+        }
+
+    }
+
     public static void logSSLHandshake(SslCliParams sslCliParams) {
         try {
 
-            Server serverToBeCalled = parseSslCliParams(sslCliParams);
+            Server server = parseSslCliParams(sslCliParams);
 
-            SSLSocket socket = (SSLSocket) SSLSocketFactory.getDefault().createSocket();
-            socket.setSoTimeout(DEFAULT_SOCKET_TIMEOUT_MILLIS);
-            socket.connect(new InetSocketAddress(serverToBeCalled.getServerName(), serverToBeCalled.getServerPort()), DEFAULT_SOCKET_TIMEOUT_MILLIS);
-            socket.startHandshake();
-            socket.close();
+            if (sslCliParams.getMode().equals("client")) {
+                openClientSocket(server);
+            }
+
+            if (sslCliParams.getMode().equals("server")) {
+                openServerSocket(server);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

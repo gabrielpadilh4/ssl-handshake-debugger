@@ -18,7 +18,7 @@
             "request": "launch",
             "mainClass": "io.github.gabrielpadilh4.Main",
             "projectName": "ssl-handshake-debugger",
-            "args": "-s github.com"
+            "args": "-m client -s github.com"
         },
         {
             "type": "java",
@@ -26,7 +26,15 @@
             "request": "launch",
             "mainClass": "io.github.gabrielpadilh4.Main",
             "projectName": "ssl-handshake-debugger",
-            "args": "-s github.com:443 -a"
+            "args": "-m client -s github.com:443 -a"
+        },
+        {
+            "type": "java",
+            "name": "Main Server debug",
+            "request": "launch",
+            "mainClass": "io.github.gabrielpadilh4.Main",
+            "projectName": "ssl-handshake-debugger",
+            "args": "-m server -s localhost:8443"
         }
     ]
 }
