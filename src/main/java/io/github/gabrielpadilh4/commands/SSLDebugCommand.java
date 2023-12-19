@@ -14,7 +14,7 @@ import io.github.gabrielpadilh4.services.SSLService;
  */
 @Command(name = "handshake-debug", mixinStandardHelpOptions = true, 
         description = "Command line application that tests SSL/TLS handshake as client or server and prints the javax.net.debug output.", 
-        version = { "SSL Handshake Debugger 1.3", "JVM: ${java.version} (${java.vendor} ${java.vm.name} ${java.vm.version})", "OS: ${os.name} ${os.version} ${os.arch}" },
+        version = { "SSL Handshake Debugger 1.4", "JVM: ${java.version} (${java.vendor} ${java.vm.name} ${java.vm.version})", "OS: ${os.name} ${os.version} ${os.arch}" },
         usageHelpAutoWidth = true)
 public class SSLDebugCommand implements Callable<Integer> {
 

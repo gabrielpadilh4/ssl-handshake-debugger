@@ -6,7 +6,7 @@
 
     <groupId>io.github.gabrielpadilh4</groupId>
     <artifactId>ssl-handshake-debugger</artifactId>
-    <version>1.3-SNAPSHOT</version>
+    <version>1.4-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
