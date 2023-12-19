@@ -32,6 +32,10 @@ Command output example as server:
 
 To build from source, refer to the [building and working with the code base](docs/building.md) guide.
 
+## Contributing
+
+Before contributing to Keycloak, please read our [contributing guidelines](CONTRIBUTING.md).
+
 ## License
 
 * [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
