@@ -36,7 +36,7 @@ To build from source, refer to the [building and working with the code base](doc
 
 ## Contributing
 
-Before contributing to Keycloak, please read our [contributing guidelines](CONTRIBUTING.md).
+Before contributing to ssl-handshake-debugger, please read our [contributing guidelines](CONTRIBUTING.md).
 
 ## License
 
