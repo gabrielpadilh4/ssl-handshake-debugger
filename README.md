@@ -28,4 +28,8 @@ Command output example as server:
 
 [See here](https://gist.github.com/gabrielpadilh4/5468e38a2cbd11cc7d45d19c8d4b2589)
 
+## Building from Source
+
+To build from source, refer to the [building and working with the code base](docs/building.md) guide.
+
 Feel free to contribute.
