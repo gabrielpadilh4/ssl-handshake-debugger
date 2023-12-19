@@ -7,7 +7,7 @@ Ensure you have JDK 11 (or newer), Git and Maven 3.5+ installed
     mvn --version
 
 ---    
-First clone the Keycloak repository:
+First clone the ssl-handshake-debugger repository:
     
     git clone https://github.com/gabrielpadilh4/ssl-handshake-debugger
     cd ssl-handshake-debugger
