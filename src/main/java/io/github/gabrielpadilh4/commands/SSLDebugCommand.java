@@ -1,90 +1,51 @@
 package io.github.gabrielpadilh4.commands;
 
-import io.github.gabrielpadilh4.exceptions.InvalidModeException;
-import io.github.gabrielpadilh4.exceptions.MissingArgumentException;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
+
+import java.util.concurrent.Callable;
+
 import io.github.gabrielpadilh4.models.SslCliParams;
 import io.github.gabrielpadilh4.services.SSLService;
 
 /**
  * @author gabrielpadilhasantos@gmail.com
  */
-public class SSLDebugCommand {
+@Command(name = "handshake-debug", mixinStandardHelpOptions = true, 
+        description = "Command line application that tests SSL/TLS handshake as client or server and prints the javax.net.debug output.", 
+        version = { "SSL Handshake Debugger 1.3", "JVM: ${java.version} (${java.vendor} ${java.vm.name} ${java.vm.version})", "OS: ${os.name} ${os.version} ${os.arch}" },
+        usageHelpAutoWidth = true)
+public class SSLDebugCommand implements Callable<Integer> {
 
-    public static void execute(String[] args) {
+    @Parameters(description = "Mode to run, client or server", defaultValue = "client")
+    private String mode;
 
-        try {
+    @Option(names = { "-s", "-server" }, description = "IP or Host to bind or call", required = true)
+    private String server;
 
-            System.out.println("********** SSL HANDSHAKE - DEBUGGER **********");
+    @Option(names = { "-p", "--port" }, description = "Port to listen or be hit", defaultValue = "443", required = true)
+    private int port;
 
-            SslCliParams sslCliParams = new SslCliParams();
+    @Option(names = { "-f", "--file" }, description = "Filename to write the handshake output", defaultValue = "", required = false)
+    private String fileName;
 
-            if (args.length == 0) {
-                printHelp();
-            }
+    @Option(names = { "-a", "--all" }, description = "Use javax.net.debug=all instead of javax.net.debug=ssl:handshake:verbose", required = false)
+    private boolean allJavaxNetDebug;
 
-            for (int i = 0; i < args.length; i++) {
-                final String argument = args[i];
+    @Override
+    public Integer call() throws Exception {
 
-                if (argument.equals("-h") || argument.equals("--help")) {
-                    printHelp();
-                    break;
-                }
+        SslCliParams sslCliParams = new SslCliParams();
 
-                if (argument.equals("-m") || argument.equals("--mode")) {
-                    try {
-                        String mode = args[++i];
-                        sslCliParams.setMode(mode);
-                        sslCliParams.setEnable(true);
-                    } catch (IndexOutOfBoundsException e) {
-                        throw new MissingArgumentException("Missing argument for option -m, --mode");
-                    } catch (InvalidModeException e) {
-                        throw e;
-                    }
-                }
+        sslCliParams.setMode(mode);
+        sslCliParams.setServer(server);
+        sslCliParams.setPort(port);
+        sslCliParams.setFileName(fileName);
+        sslCliParams.setAllDebug(allJavaxNetDebug);
 
-                if (argument.equals("-s") || argument.equals("--server")) {
-                    try {
-                        String server = args[++i];
-                        sslCliParams.setServer(server);
-                        sslCliParams.setEnable(true);
-                    } catch (IndexOutOfBoundsException e) {
-                        throw new MissingArgumentException("Missing argument for option -s, --server");
-                    }
-                }
+        SSLService.logSSLHandshake(sslCliParams);
 
-                if (argument.equals("-f") || argument.equals("--filename")) {
-                    try {
-                        String fileName = args[++i];
-                        sslCliParams.setFileName(fileName);
-                    } catch (IndexOutOfBoundsException e) {
-                        throw new MissingArgumentException("Missing argument for option -f, --file");
-                    }
-                }
-
-                if (argument.equals("-a") || argument.equals("--all")) {
-                    sslCliParams.setAllDebug(true);
-                }
-            }
-
-            if (sslCliParams.isEnabled()) {
-                SSLService.logSSLHandshake(sslCliParams);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return 0;
     }
-
-    public static void printHelp() {
-        System.out.println("For default, the program uses ssl:handshake:verbose value for javax.net.debug");
-        System.out.println("Options:");
-        System.out.println(
-                "  -m, --mode     (Required)Application mode, it accepts client or server as it's value (e.g client / server)");
-        System.out.println(
-                "  -s, --server   (Required)Server or Ip Address with the port(default 443) to be tested for ssl handshake (e.g example:8443 / 127.0.0.1:2100 / google.com)");
-        System.out.println("  -f, --filename Redirects debug log output to a file");
-        System.out.println("  -a, --all      Enable all debugging log javax.net.debug=all");
-        System.out.println("  -h, --help     Display help information");
-    }
-
 }

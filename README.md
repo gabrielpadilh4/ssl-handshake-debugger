@@ -8,15 +8,16 @@ Command line application that tests SSL/TLS handshake as client or server and pr
 
 Usage:
 ```sh
- $ java -jar ssl-handshake-debugger-1.0-SNAPSHOT.jar
-********** SSL HANDSHAKE - DEBUGGER **********
-For default, the program uses ssl:handshake:verbose value for javax.net.debug
-Options:
-  -m, --mode     (Required) Aplication mode, client or server
-  -s, --server   (Required) Server or Ip Address with the port(default 443) to listen or call for ssl handshake (e.g example:8443 / 127.0.0.1:2100 / google.com)
-  -f, --filename Redirects debug log output to a file
-  -a, --all      Enable all debugging log javax.net.debug=all
-  -h, --help     Display help information
+$ ssl-handshake-debugger
+Usage: handshake-debug [-ahV] [-f=<fileName>] [-p=<port>] -s=<server> <mode>
+Command line application that tests SSL/TLS handshake as client or server and prints the javax.net.debug output.
+      <mode>              Mode to run, client or server
+  -a, --all               Use javax.net.debug=all instead of javax.net.debug=ssl:handshake:verbose
+  -f, --file=<fileName>   Filename to write the handshake output
+  -h, --help              Show this help message and exit.
+  -p, --port=<port>       Port to listen or be hit
+  -s, -server=<server>    IP or Host to bind or call
+  -V, --version           Print version information and exit.
 ```
 
 Command output example as client:

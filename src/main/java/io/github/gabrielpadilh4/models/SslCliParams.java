@@ -9,15 +9,14 @@ public class SslCliParams {
 
     private String mode;
     private String server;
+    private int port;
     private String fileName;
     private boolean allDebug;
-    private boolean enable;
 
     public SslCliParams() {
         this.mode = "";
         this.server = "";
         this.fileName = "";
-        this.enable = false;
         this.allDebug = false;
     }
 
@@ -31,7 +30,8 @@ public class SslCliParams {
             return;
         }
 
-        throw new InvalidModeException("Invalid value for application mode! Accepted values client / server. Current value: " + mode);
+        throw new InvalidModeException(
+                "Invalid value for application mode! Accepted values client / server. Current value: " + mode);
     }
 
     public String getServer() {
@@ -40,6 +40,14 @@ public class SslCliParams {
 
     public void setServer(String server) {
         this.server = server;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 
     public String getFileName() {
@@ -57,13 +65,4 @@ public class SslCliParams {
     public void setAllDebug(boolean allDebug) {
         this.allDebug = allDebug;
     }
-
-    public boolean isEnabled() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
 }
