@@ -35,6 +35,7 @@
                 <artifactId>appassembler-maven-plugin</artifactId>
                 <version>${appassembler.version}</version>
                 <configuration>
+                    <assembleDirectory>${project.build.directory}/ssl-handshake-debugger</assembleDirectory>
                     <programs>
                         <program>
                             <mainClass>io.github.gabrielpadilh4.Main</mainClass>
