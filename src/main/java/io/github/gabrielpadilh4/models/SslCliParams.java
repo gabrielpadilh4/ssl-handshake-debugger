@@ -11,12 +11,14 @@ public class SslCliParams {
     private String server;
     private int port;
     private String fileName;
+    private String enabledProtocols;
     private boolean allDebug;
 
     public SslCliParams() {
         this.mode = "";
         this.server = "";
         this.fileName = "";
+        this.enabledProtocols = "";
         this.allDebug = false;
     }
 
@@ -56,6 +58,14 @@ public class SslCliParams {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public void setEnabledProtocols(String enabledProtocols) {
+        this.enabledProtocols = enabledProtocols;
+    }
+
+    public String getEnabledProtocols() {
+        return this.enabledProtocols;
     }
 
     public boolean isAllDebug() {
