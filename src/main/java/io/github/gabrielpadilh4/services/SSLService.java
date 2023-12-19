@@ -38,6 +38,11 @@ public class SSLService {
             System.setProperty("javax.net.debug", "ssl:handshake:verbose");
         }
 
+        if (!sslCliParams.getEnabledProtocols().isBlank()) {
+            System.setProperty("jdk.tls.server.protocols", sslCliParams.getEnabledProtocols());
+            System.setProperty("jdk.tls.client.protocols", sslCliParams.getEnabledProtocols());
+        }
+
         if (!sslCliParams.getFileName().isBlank()) {
             File file = new File(sslCliParams.getFileName());
             System.out.println("Writing output to file: " + sslCliParams.getFileName());
@@ -67,11 +72,12 @@ public class SSLService {
          * TODO - Get the keystore from command line parameters, otherwise use the
          * default keystore
          */
-
         Path temp = Files.createTempDirectory("app");
-        Files.copy(SSLDebugCommand.class.getResourceAsStream("/server.keystore"), temp, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(SSLDebugCommand.class.getResourceAsStream("/server.keystore"), temp,
+                StandardCopyOption.REPLACE_EXISTING);
 
-        //String keyStorePath = SSLDebugCommand.class.getResource("/server.keystore").getPath();
+        // String keyStorePath =
+        // SSLDebugCommand.class.getResource("/server.keystore").getPath();
         String keyStorePath = temp.toFile().getAbsolutePath();
         System.setProperty("javax.net.ssl.keyStore", keyStorePath);
         System.setProperty("javax.net.ssl.keyStorePassword", "password");
@@ -86,11 +92,6 @@ public class SSLService {
              * TODO -
              * Get a list of enabled cipher suites from the command line
              * otherwise, use default cipher suites
-             */
-
-            /*
-             * TODO -
-             * Get a list of enabled SSL/TLS protocols, otherwise, use default protocols
              */
 
             try (Socket socket = listener.accept()) {

@@ -30,6 +30,9 @@ public class SSLDebugCommand implements Callable<Integer> {
     @Option(names = { "-f", "--file" }, description = "Filename to write the handshake output", defaultValue = "", required = false)
     private String fileName;
 
+    @Option(names = { "-pr", "--protocols" }, description = "TLS/SSL JVM enabled protocols list(e.g. TLSv1.2, TLSv1.3)", defaultValue = "", required = false)
+    private String enabledProtocols;
+
     @Option(names = { "-a", "--all" }, description = "Use javax.net.debug=all instead of javax.net.debug=ssl:handshake:verbose", required = false)
     private boolean allJavaxNetDebug;
 
@@ -42,6 +45,7 @@ public class SSLDebugCommand implements Callable<Integer> {
         sslCliParams.setServer(server);
         sslCliParams.setPort(port);
         sslCliParams.setFileName(fileName);
+        sslCliParams.setEnabledProtocols(enabledProtocols);
         sslCliParams.setAllDebug(allJavaxNetDebug);
 
         SSLService.logSSLHandshake(sslCliParams);
