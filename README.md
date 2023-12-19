@@ -32,4 +32,6 @@ Command output example as server:
 
 To build from source, refer to the [building and working with the code base](docs/building.md) guide.
 
-Feel free to contribute.
+## License
+
+* [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
