@@ -19,7 +19,6 @@ import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -29,8 +28,7 @@ import java.nio.file.StandardCopyOption;
  */
 public class SSLService {
 
-    private static int DEFAULT_SSL_PORT = 443;
-    private static int DEFAULT_SOCKET_TIMEOUT_MILLIS = 1000;
+    private static int DEFAULT_SOCKET_TIMEOUT_MILLIS = 3000;
 
     private static Server parseSslCliParams(SslCliParams sslCliParams) throws Exception {
 
@@ -47,17 +45,8 @@ public class SSLService {
             System.setErr(stream);
         }
 
-        String[] serverParams = sslCliParams.getServer().split(":");
-
-        String serverName = serverParams[0];
-        int serverPort = DEFAULT_SSL_PORT;
-
-        try {
-            serverPort = Integer.parseInt(serverParams[1]);
-        } catch (IndexOutOfBoundsException | NumberFormatException ex) {
-            System.out.println(String.format("Invalid port specified for %s using default port 443", serverName));
-            serverPort = DEFAULT_SSL_PORT;
-        }
+        String serverName = sslCliParams.getServer();
+        int serverPort = sslCliParams.getPort();
 
         return new Server(serverName, serverPort);
     }
