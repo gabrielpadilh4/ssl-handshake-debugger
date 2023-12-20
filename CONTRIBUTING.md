@@ -42,6 +42,29 @@ our automatic merging process.
 Please, also provide a good description [commit message, with a link to the issue](#commit-messages-and-issue-linking).
 We also require that the commit message includes a link to the issue ([linking a pull request to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue)).
 
+### Developer's Certificate of Origin
+
+Prior to contributing to ssl-handshake-debugger please read the [Developer's Certificate of Origin](https://developercertificate.org/)
+and sign-off all commits with the `--signoff` option provided by `git commit`. For example:
+
+```
+git commit --signoff --message "This is the commit message"
+```
+
+This option adds a `Signed-off-by` trailer at the end of the commit log message.
+
+### Commit messages and issue linking
+
+The format for a commit message should look like:
+
+```
+A brief descriptive summary
+
+Optionally, more details around how it was implemented
+
+Closes #1234
+``` 
+
 ### Commit messages and issue linking
 
 The format for a commit message should look like:
