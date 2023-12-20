@@ -4,7 +4,7 @@
 
 ## About
 
-Command line application that tests SSL/TLS handshake as client or server and prints the `javax.net.debug` output.
+Command line application built in Java that tests SSL/TLS handshake as client or server and prints the [javax.net.debug](https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/ReadDebug.html) output.
 
 Usage:
 ```sh
