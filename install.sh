@@ -29,7 +29,7 @@ if ! which wget 2> /dev/null; then
     display_error "'wget' has not been found in the system. Please install the package first to proceed."
 
 elif ! which unzip 2> /dev/null; then
-    display_error "'wget' has not been found in the system. Please install the package first to proceed."
+    display_error "'unzip' has not been found in the system. Please install the package first to proceed."
 fi
 
 # Download the application archive and extract it to the installation directory
