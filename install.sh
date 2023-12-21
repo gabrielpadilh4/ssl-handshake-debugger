@@ -33,6 +33,9 @@ if ! which wget 2> /dev/null; then
 
 elif ! which unzip 2> /dev/null; then
     display_error "'unzip' has not been found in the system. Please install the package first to proceed."
+
+elif ! which java 2> /dev/null; then
+    display_error "'java' has not been found in the system. Please install the package first to proceed."
 fi
 
 # Download the application archive and extract it to the installation directory
@@ -56,3 +59,4 @@ fi
 source "$HOME/.bashrc"
 
 echo "Installation successful! Use 'ssl-handshake-debugger -h' command to run the application."
+echo "Obs: Some distributions need to restart the shell to work."
