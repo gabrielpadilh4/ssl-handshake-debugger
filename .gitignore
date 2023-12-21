@@ -162,5 +162,6 @@ ssl-handshake-debugger/**
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
-
+.settings
+.settings/
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,maven
