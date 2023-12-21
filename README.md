@@ -37,6 +37,12 @@ Use the following command to get the `ssl-handshake-debugger` installed on your 
 wget -qO- https://raw.githubusercontent.com/gabrielpadilh4/ssl-handshake-debugger/main/install.sh | sh
 ```
 
+Alternatively, it can be installed through using `curl` as well:
+
+```sh
+sh <(curl -s https://raw.githubusercontent.com/gabrielpadilh4/ssl-handshake-debugger/main/install.sh)
+```
+
 ## Building from Source
 
 To build from source, refer to the [building and working with the code base](docs/building.md) guide.
