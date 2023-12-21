@@ -9,7 +9,11 @@
 	</formats>
 	<fileSets>
 		<fileSet>
-			<directory>${project.basedir}/ssl-handshake-debugger</directory>
+			<directory>${project.build.directory}/ssl-handshake-debugger/</directory>
+			<outputDirectory></outputDirectory>
+			<excludes>
+				<exclude>%regex[(?!.*src/).*target.*]</exclude>
+			</excludes>
 		</fileSet>
 	</fileSets>
 	<files>
@@ -17,7 +21,6 @@
 			<source>
 				${project.basedir}/install.sh
 			</source>
-			<outputDirectory>/</outputDirectory>
 		</file>
 	</files>
 </assembly>
