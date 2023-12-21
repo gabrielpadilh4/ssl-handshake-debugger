@@ -5,7 +5,7 @@ Details for building from source and working with the codebase are provided in t
 ### Finding something to work on
 
 If you would like to contribute to ssl-handshake-debugger, but are not sure exactly what to work on, you can find a number of open
-issues that are awaiting contributions in  [issues](https://github.com/gabrielpadilh4/ssl-handshake-debugger/issues)https://github.com/gabrielpadilh4/ssl-handshake-debugger/issues).
+issues that are awaiting contributions in [issues](https://github.com/gabrielpadilh4/ssl-handshake-debugger/issues).
 
 ### Create an issue
 
