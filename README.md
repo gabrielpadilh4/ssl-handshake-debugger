@@ -30,6 +30,13 @@ Command output example as server:
 
 [See here](https://gist.github.com/gabrielpadilh4/5468e38a2cbd11cc7d45d19c8d4b2589)
 
+## Installation
+
+Use the following command to get the `ssl-handshake-debugger` installed on your machine:
+```sh
+wget -qO- https://raw.githubusercontent.com/gabrielpadilh4/ssl-handshake-debugger/main/install.sh | sh
+```
+
 ## Building from Source
 
 To build from source, refer to the [building and working with the code base](docs/building.md) guide.
