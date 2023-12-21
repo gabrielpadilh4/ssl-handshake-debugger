@@ -2,7 +2,7 @@
 
 ARG="${1}"
 
-VERSION="v1.4"
+VERSION="1.4"
 
 # If calling './install.sh local', deploy it in the local working directory instead of $HOME
 
@@ -11,12 +11,15 @@ if [[ -n ${ARG} ]] && [[ "${ARG,,}" == "local" ]]; then
     BIN_DIR="$INSTALL_DIR/bin"
 
 else
-    INSTALL_DIR="$HOME"
-    BIN_DIR="$INSTALL_DIR/ssl-handshake-debugger/bin"
+    INSTALL_DIR="$HOME/ssl-handshake-debugger"
+    BIN_DIR="$INSTALL_DIR/bin"
 fi
 
-DOWNLOAD_URL="https://github.com/gabrielpadilh4/ssl-handshake-debugger/releases/download/$VERSION/ssl-handshake-debugger.zip"
-ZIP_DOWNLOAD_FILE_NAME="ssl-handshake-debugger.zip"
+DOWNLOAD_URL="https://github.com/gabrielpadilh4/ssl-handshake-debugger/releases/download/v$VERSION/ssl-handshake-debugger-$VERSION-SNAPSHOT.zip"
+
+echo $DOWNLOAD_URL
+
+ZIP_DOWNLOAD_FILE_NAME="ssl-handshake-debugger-$VERSION-SNAPSHOT.zip"
 
 function display_error() {
     echo "Error: $1"
