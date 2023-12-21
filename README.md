@@ -43,6 +43,8 @@ Alternatively, it can be installed through using `curl` as well:
 sh <(curl -s https://raw.githubusercontent.com/gabrielpadilh4/ssl-handshake-debugger/main/install.sh)
 ```
 
+It will download and extract the binaries of `ssl-handshake-debugger` command on `$HOME/ssl-handshake-debugger` and add it to the `$PATH` variable by changing the `.bashrc` file.
+
 ## Building from Source
 
 To build from source, refer to the [building and working with the code base](docs/building.md) guide.
