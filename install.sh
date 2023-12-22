@@ -28,8 +28,8 @@ function display_error() {
 
 # Verify whether 'wget' and 'unzip' exists
 
-if ! which wget 2> /dev/null; then
-    display_error "'wget' has not been found in the system. Please install the package first to proceed."
+if ! which curl 2> /dev/null; then
+    display_error "'curl' has not been found in the system. Please install the package first to proceed."
 
 elif ! which unzip 2> /dev/null; then
     display_error "'unzip' has not been found in the system. Please install the package first to proceed."
@@ -40,7 +40,8 @@ fi
 
 # Download the application archive and extract it to the installation directory
 echo "Downloading and extracting the application..."
-wget -q -O /tmp/$ZIP_DOWNLOAD_FILE_NAME "$DOWNLOAD_URL" && unzip -o /tmp/$ZIP_DOWNLOAD_FILE_NAME -d "$INSTALL_DIR" || display_error "Failed to donwload and extract ssl-handshake-debugger"
+curl -s "$DOWNLOAD_URL" -L -o /tmp/$ZIP_DOWNLOAD_FILE_NAME && unzip -qo /tmp/$ZIP_DOWNLOAD_FILE_NAME -d "$INSTALL_DIR" || display_error "Failed to download and extract ssl-handshake-debugger"
+rm -rf /tmp/$ZIP_DOWNLOAD_FILE_NAME
 
 # Add the application's bin directory to the PATH
 echo "Updating PATH to include the application..."
