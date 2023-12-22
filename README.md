@@ -34,12 +34,6 @@ Command output example as server:
 
 Use the following command to get the `ssl-handshake-debugger` installed on your machine:
 ```sh
-wget -qO- https://raw.githubusercontent.com/gabrielpadilh4/ssl-handshake-debugger/main/install.sh | sh
-```
-
-Alternatively, it can be installed through using `curl` as well:
-
-```sh
 sh <(curl -s https://raw.githubusercontent.com/gabrielpadilh4/ssl-handshake-debugger/main/install.sh)
 ```
 
