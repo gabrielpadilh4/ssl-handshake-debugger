@@ -48,6 +48,24 @@ public class SSLService {
             System.setProperty("jdk.tls.server.cipherSuites", sslCliParams.getCiphers());
         }
 
+        if (!sslCliParams.getKeystore().isBlank()) {
+            System.setProperty("javax.net.ssl.keyStore", sslCliParams.getKeystore());
+            System.setProperty("javax.net.ssl.keyStorePassword", sslCliParams.getKeystorePassword());
+        } else {
+
+            Path temp = Files.createTempDirectory("app");
+            Files.copy(SSLDebugCommand.class.getResourceAsStream("/server.keystore"), temp, StandardCopyOption.REPLACE_EXISTING);
+
+            String keyStorePath = temp.toFile().getAbsolutePath();
+            System.setProperty("javax.net.ssl.keyStore", keyStorePath);
+            System.setProperty("javax.net.ssl.keyStorePassword", "password");
+        }
+
+        if (!sslCliParams.getTruststore().isBlank()) {
+            System.setProperty("javax.net.ssl.trustStore", sslCliParams.getTruststore());
+            System.setProperty("javax.net.ssl.trustStorePassword", sslCliParams.getTruststorePassword());            
+        }
+
         if (!sslCliParams.getFileName().isBlank()) {
             File file = new File(sslCliParams.getFileName());
             System.out.println("Writing output to file: " + sslCliParams.getFileName());
@@ -73,18 +91,6 @@ public class SSLService {
 
     private static void openServerSocket(Server serverListener) throws IOException {
 
-        /*
-         * TODO - Get the keystore from command line parameters, otherwise use the
-         * default keystore
-         */
-        Path temp = Files.createTempDirectory("app");
-        Files.copy(SSLDebugCommand.class.getResourceAsStream("/server.keystore"), temp,
-                StandardCopyOption.REPLACE_EXISTING);
-
-        String keyStorePath = temp.toFile().getAbsolutePath();
-        System.setProperty("javax.net.ssl.keyStore", keyStorePath);
-        System.setProperty("javax.net.ssl.keyStorePassword", "password");
-
         ServerSocketFactory factory = SSLServerSocketFactory.getDefault();
         InetAddress bindAddress = InetAddress.getByName(serverListener.getServerName());
 
@@ -102,7 +108,6 @@ public class SSLService {
                     System.out.flush();
                 }
             }
-
         }
 
     }

@@ -13,6 +13,10 @@ public class SslCliParams {
     private String ciphers;
     private String fileName;
     private String enabledProtocols;
+    private String keystore;
+    private String keystorePassword;
+    private String truststore;
+    private String truststorePassword;
     private boolean allDebug;
 
     public SslCliParams() {
@@ -22,6 +26,10 @@ public class SslCliParams {
         this.ciphers = "";
         this.fileName = "";
         this.enabledProtocols = "";
+        this.keystore = "";
+        this.keystorePassword = "";
+        this.truststore = "";
+        this.truststorePassword = "";
         this.allDebug = false;
     }
 
@@ -77,6 +85,38 @@ public class SslCliParams {
 
     public String getEnabledProtocols() {
         return this.enabledProtocols;
+    }
+
+    public void setKeystore(String keystore) {
+        this.keystore = keystore;
+    }
+
+    public String getKeystore() {
+        return this.keystore;
+    }
+
+    public void setKeystorePassword(String keystorePassword) {
+        this.keystorePassword = keystorePassword;
+    }
+
+    public String getKeystorePassword() {
+        return this.keystorePassword;
+    }
+
+    public void setTruststore(String truststore) {
+        this.truststore = truststore;
+    }
+
+    public String getTruststore() {
+        return this.truststore;
+    }
+
+    public void setTruststorePassword(String truststorePassword) {
+        this.truststorePassword = truststorePassword;
+    }
+
+    public String getTruststorePassword() {
+        return this.truststorePassword;
     }
 
     public boolean isAllDebug() {
