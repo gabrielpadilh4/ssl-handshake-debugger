@@ -10,6 +10,7 @@ public class SslCliParams {
     private String mode;
     private String server;
     private int port;
+    private String ciphers;
     private String fileName;
     private String enabledProtocols;
     private boolean allDebug;
@@ -17,6 +18,8 @@ public class SslCliParams {
     public SslCliParams() {
         this.mode = "";
         this.server = "";
+        this.port = 0;
+        this.ciphers = "";
         this.fileName = "";
         this.enabledProtocols = "";
         this.allDebug = false;
@@ -50,6 +53,14 @@ public class SslCliParams {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public String getCiphers() {
+        return ciphers;
+    }
+
+    public void setCiphers(String ciphers) {
+        this.ciphers = ciphers;
     }
 
     public String getFileName() {

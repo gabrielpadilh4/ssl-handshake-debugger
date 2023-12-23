@@ -9,17 +9,23 @@ Command line application built in Java that tests SSL/TLS handshake as client or
 Usage:
 ```sh
 $ ssl-handshake-debugger -h
-Usage: handshake-debug [-ahV] [-f=<fileName>] [-p=<port>] [-pr=<enabledProtocols>] -s=<server> <mode>
+Usage: handshake-debug [-ahv] [-c=<ciphers>] [-f=<fileName>] -p=<port> [-pr=<protocols>] -s=<server> <mode>
+
+Description:
+
 Command line application that tests SSL/TLS handshake as client or server and prints the javax.net.debug output.
-      <mode>              Mode to run, client or server
-  -a, --all               Use javax.net.debug=all instead of javax.net.debug=ssl:handshake:verbose
-  -f, --file=<fileName>   Filename to write the handshake output
-  -h, --help              Show this help message and exit.
-  -p, --port=<port>       Port to listen or be hit
-      -pr, --protocols=<enabledProtocols>
-                          TLS/SSL JVM enabled protocols list(e.g. TLSv1.2, TLSv1.3)
-  -s, -server=<server>    IP or Host to bind or call
-  -V, --version           Print version information and exit.
+*     <mode>                mode to run, client or server
+
+Parameters:
+* -s, -server=<server>      ip or host to bind or call
+* -p, --port=<port>         port to listen or be hit
+  -c, --ciphers=<ciphers>   enabled cipher suites(e.g TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)
+  -f, --file=<fileName>     filename to write the handshake output
+      -pr, --protocols=<protocols>
+                            jvm ssl/tls enabled protocols list(e.g. TLSv1.2, TLSv1.3)
+  -a, --all                 use javax.net.debug=all instead of javax.net.debug=ssl:handshake:verbose
+  -v, --version             display version info
+  -h, --help                display this help message
 ```
 
 Command output example as client:

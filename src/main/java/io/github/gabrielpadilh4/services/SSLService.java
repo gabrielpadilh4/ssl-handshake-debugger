@@ -43,6 +43,11 @@ public class SSLService {
             System.setProperty("jdk.tls.client.protocols", sslCliParams.getEnabledProtocols());
         }
 
+        if (!sslCliParams.getCiphers().isBlank()) {
+            System.setProperty("jdk.tls.client.cipherSuites", sslCliParams.getCiphers());
+            System.setProperty("jdk.tls.server.cipherSuites", sslCliParams.getCiphers());
+        }
+
         if (!sslCliParams.getFileName().isBlank()) {
             File file = new File(sslCliParams.getFileName());
             System.out.println("Writing output to file: " + sslCliParams.getFileName());
@@ -76,8 +81,6 @@ public class SSLService {
         Files.copy(SSLDebugCommand.class.getResourceAsStream("/server.keystore"), temp,
                 StandardCopyOption.REPLACE_EXISTING);
 
-        // String keyStorePath =
-        // SSLDebugCommand.class.getResource("/server.keystore").getPath();
         String keyStorePath = temp.toFile().getAbsolutePath();
         System.setProperty("javax.net.ssl.keyStore", keyStorePath);
         System.setProperty("javax.net.ssl.keyStorePassword", "password");
@@ -88,18 +91,12 @@ public class SSLService {
         try (SSLServerSocket listener = (SSLServerSocket) factory.createServerSocket(serverListener.getServerPort(), 5,
                 bindAddress)) {
 
-            /*
-             * TODO -
-             * Get a list of enabled cipher suites from the command line
-             * otherwise, use default cipher suites
-             */
-
             try (Socket socket = listener.accept()) {
                 InputStream inputStream = socket.getInputStream();
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 String request = null;
+
                 while ((request = bufferedReader.readLine()) != null) {
                     System.out.println(request);
                     System.out.flush();
