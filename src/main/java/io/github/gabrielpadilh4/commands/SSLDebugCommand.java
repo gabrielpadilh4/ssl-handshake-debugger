@@ -12,10 +12,10 @@ import io.github.gabrielpadilh4.services.SSLService;
 /**
  * @author gabrielpadilhasantos@gmail.com
  */
-@Command(name = "handshake-debug", 
+@Command(name = "ssl-handshake-debugger", 
         mixinStandardHelpOptions = true, 
         description = "Command line application that tests SSL/TLS handshake as client or server and prints the javax.net.debug output.", 
-        version = { "SSL Handshake Debugger 1.4", 
+        version = { "SSL Handshake Debugger 1.5", 
                     "JVM: ${java.version} (${java.vendor} ${java.vm.name} ${java.vm.version})", 
                     "OS: ${os.name} ${os.version} ${os.arch}" 
                 },
@@ -44,6 +44,18 @@ public class SSLDebugCommand implements Callable<Integer> {
     @Option(names = { "--protocols", "-pr" }, description = "jvm ssl/tls enabled protocols list(e.g. TLSv1.2, TLSv1.3)", defaultValue = "")
     private String protocols;
 
+    @Option(names = { "--truststore", "-ts" }, description = "truststore path", defaultValue = "")
+    private String truststore;
+
+    @Option(names = { "--truststorePassword", "-tsp" }, description = "truststore password", defaultValue = "")
+    private String truststorePassword;
+
+    @Option(names = { "--keystore", "-ks" }, description = "keystore path", defaultValue = "")
+    private String keystore;
+
+    @Option(names = { "--keystorePassword", "-ksp" }, description = "keystorePassword", defaultValue = "")
+    private String keystorePassword;
+
     @Option(names = { "--all", "-a" }, description = "use javax.net.debug=all instead of javax.net.debug=ssl:handshake:verbose")
     private boolean allJavaxNetDebug;
 
@@ -64,6 +76,10 @@ public class SSLDebugCommand implements Callable<Integer> {
         sslCliParams.setCiphers(ciphers);
         sslCliParams.setFileName(fileName);
         sslCliParams.setEnabledProtocols(protocols);
+        sslCliParams.setTruststore(truststore);
+        sslCliParams.setTruststorePassword(truststorePassword);
+        sslCliParams.setKeystore(keystore);
+        sslCliParams.setKeystorePassword(keystorePassword);
         sslCliParams.setAllDebug(allJavaxNetDebug);
 
         SSLService.logSSLHandshake(sslCliParams);

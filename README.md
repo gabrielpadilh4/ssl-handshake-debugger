@@ -9,7 +9,7 @@ Command line application built in Java that tests SSL/TLS handshake as client or
 Usage:
 ```sh
 $ ssl-handshake-debugger -h
-Usage: handshake-debug [-ahv] [-c=<ciphers>] [-f=<fileName>] -p=<port> [-pr=<protocols>] -s=<server> <mode>
+Usage: ssl-handshake-debugger [-ahv] [-c=<ciphers>] [-f=<fileName>] [-ks=<keystore>] [-ksp=<keystorePassword>] -p=<port> [-pr=<protocols>] -s=<server> [-ts=<truststore>] [-tsp=<truststorePassword>] <mode>
 
 Description:
 
@@ -23,6 +23,14 @@ Parameters:
   -f, --file=<fileName>     filename to write the handshake output
       -pr, --protocols=<protocols>
                             jvm ssl/tls enabled protocols list(e.g. TLSv1.2, TLSv1.3)
+      -ts, --truststore=<truststore>
+                            truststore path
+      -tsp, --truststorePassword=<truststorePassword>
+                            truststore password
+      -ks, --keystore=<keystore>
+                            keystore path
+      -ksp, --keystorePassword=<keystorePassword>
+                            keystorePassword
   -a, --all                 use javax.net.debug=all instead of javax.net.debug=ssl:handshake:verbose
   -v, --version             display version info
   -h, --help                display this help message

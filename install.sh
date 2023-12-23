@@ -2,7 +2,7 @@
 
 ARG="${1}"
 
-VERSION="1.4"
+VERSION="1.5"
 
 # If calling './install.sh local', deploy it in the local working directory instead of $HOME
 
