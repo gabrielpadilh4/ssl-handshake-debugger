@@ -12,29 +12,46 @@ import io.github.gabrielpadilh4.services.SSLService;
 /**
  * @author gabrielpadilhasantos@gmail.com
  */
-@Command(name = "handshake-debug", mixinStandardHelpOptions = true, 
+@Command(name = "handshake-debug", 
+        mixinStandardHelpOptions = true, 
         description = "Command line application that tests SSL/TLS handshake as client or server and prints the javax.net.debug output.", 
-        version = { "SSL Handshake Debugger 1.4", "JVM: ${java.version} (${java.vendor} ${java.vm.name} ${java.vm.version})", "OS: ${os.name} ${os.version} ${os.arch}" },
-        usageHelpAutoWidth = true)
+        version = { "SSL Handshake Debugger 1.4", 
+                    "JVM: ${java.version} (${java.vendor} ${java.vm.name} ${java.vm.version})", 
+                    "OS: ${os.name} ${os.version} ${os.arch}" 
+                },
+        sortOptions = false, 
+        usageHelpAutoWidth = true,
+        descriptionHeading = "%nDescription:%n%n",
+        optionListHeading = "%nParameters:%n",
+        requiredOptionMarker = '*')
 public class SSLDebugCommand implements Callable<Integer> {
 
-    @Parameters(description = "Mode to run, client or server", defaultValue = "client")
+    @Parameters(description = "mode to run, client or server", defaultValue = "client")
     private String mode;
 
-    @Option(names = { "-s", "-server" }, description = "IP or Host to bind or call", required = true)
+    @Option(names = { "-server", "-s" }, required = true, description = "ip or host to bind or call")
     private String server;
 
-    @Option(names = { "-p", "--port" }, description = "Port to listen or be hit", defaultValue = "443", required = true)
+    @Option(names = { "--port", "-p" }, required = true, description = "port to listen or be hit")
     private int port;
 
-    @Option(names = { "-f", "--file" }, description = "Filename to write the handshake output", defaultValue = "", required = false)
+    @Option(names = { "--ciphers", "-c" }, description = "enabled cipher suites(e.g TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)", defaultValue = "")
+    private String ciphers;
+
+    @Option(names = { "--file", "-f" }, description = "filename to write the handshake output", defaultValue = "")
     private String fileName;
 
-    @Option(names = { "-pr", "--protocols" }, description = "TLS/SSL JVM enabled protocols list(e.g. TLSv1.2, TLSv1.3)", defaultValue = "", required = false)
-    private String enabledProtocols;
+    @Option(names = { "--protocols", "-pr" }, description = "jvm ssl/tls enabled protocols list(e.g. TLSv1.2, TLSv1.3)", defaultValue = "")
+    private String protocols;
 
-    @Option(names = { "-a", "--all" }, description = "Use javax.net.debug=all instead of javax.net.debug=ssl:handshake:verbose", required = false)
+    @Option(names = { "--all", "-a" }, description = "use javax.net.debug=all instead of javax.net.debug=ssl:handshake:verbose")
     private boolean allJavaxNetDebug;
+
+    @Option(names = { "--version", "-v" }, versionHelp = true, description = "display version info")
+    boolean versionInfoRequested;
+
+    @Option(names = { "--help", "-h" }, usageHelp = true, description = "display this help message")
+    boolean usageHelpRequested;
 
     @Override
     public Integer call() throws Exception {
@@ -44,8 +61,9 @@ public class SSLDebugCommand implements Callable<Integer> {
         sslCliParams.setMode(mode);
         sslCliParams.setServer(server);
         sslCliParams.setPort(port);
+        sslCliParams.setCiphers(ciphers);
         sslCliParams.setFileName(fileName);
-        sslCliParams.setEnabledProtocols(enabledProtocols);
+        sslCliParams.setEnabledProtocols(protocols);
         sslCliParams.setAllDebug(allJavaxNetDebug);
 
         SSLService.logSSLHandshake(sslCliParams);
