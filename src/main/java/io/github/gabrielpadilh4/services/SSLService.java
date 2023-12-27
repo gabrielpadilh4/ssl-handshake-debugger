@@ -1,15 +1,5 @@
 package io.github.gabrielpadilh4.services;
 
-import io.github.gabrielpadilh4.commands.SSLDebugCommand;
-import io.github.gabrielpadilh4.models.Server;
-import io.github.gabrielpadilh4.models.SslCliParams;
-
-import javax.net.ServerSocketFactory;
-import javax.net.ssl.SSLServerSocket;
-import javax.net.ssl.SSLServerSocketFactory;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -19,9 +9,20 @@ import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+
+import io.github.gabrielpadilh4.commands.SSLDebugCommand;
+import io.github.gabrielpadilh4.models.Server;
+import io.github.gabrielpadilh4.models.SslCliParams;
 
 /**
  * @author gabrielpadilhasantos@gmail.com
@@ -63,7 +64,7 @@ public class SSLService {
 
         if (!sslCliParams.getTruststore().isBlank()) {
             System.setProperty("javax.net.ssl.trustStore", sslCliParams.getTruststore());
-            System.setProperty("javax.net.ssl.trustStorePassword", sslCliParams.getTruststorePassword());            
+            System.setProperty("javax.net.ssl.trustStorePassword", sslCliParams.getTruststorePassword());
         }
 
         if (!sslCliParams.getFileName().isBlank()) {
@@ -77,6 +78,14 @@ public class SSLService {
         int serverPort = sslCliParams.getPort();
 
         return new Server(serverName, serverPort);
+    }
+
+    private static void openUrlSocket(String url) throws Exception {
+        URL urlTest = new URL(url);
+        SSLSocketFactory sslSocketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        SSLSocket socket = (SSLSocket) sslSocketFactory.createSocket(urlTest.getHost(), urlTest.getDefaultPort());
+        socket.startHandshake();
+        socket.close();
     }
 
     private static void openClientSocket(Server serverToBeCalled) throws IOException {
@@ -118,6 +127,10 @@ public class SSLService {
             Server server = parseSslCliParams(sslCliParams);
 
             if (sslCliParams.getMode().equals("client")) {
+                if (!sslCliParams.getUrl().isBlank()) {
+                    openUrlSocket(sslCliParams.getUrl());
+                    return;
+                }
                 openClientSocket(server);
             }
 
