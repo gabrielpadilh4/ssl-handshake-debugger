@@ -1,25 +1,24 @@
 package io.github.gabrielpadilh4.commands;
 
-import picocli.CommandLine.Command;
-import picocli.CommandLine.Option;
-import picocli.CommandLine.Parameters;
-
 import java.util.concurrent.Callable;
 
 import io.github.gabrielpadilh4.models.SslCliParams;
 import io.github.gabrielpadilh4.services.SSLService;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
 
 /**
  * @author gabrielpadilhasantos@gmail.com
  */
-@Command(name = "ssl-handshake-debugger", 
-        mixinStandardHelpOptions = true, 
-        description = "Command line application that tests SSL/TLS handshake as client or server and prints the javax.net.debug output.", 
-        version = { "SSL Handshake Debugger 1.5", 
-                    "JVM: ${java.version} (${java.vendor} ${java.vm.name} ${java.vm.version})", 
-                    "OS: ${os.name} ${os.version} ${os.arch}" 
+@Command(name = "ssl-handshake-debugger",
+        mixinStandardHelpOptions = true,
+        description = "Command line application that tests SSL/TLS handshake as client or server and prints the javax.net.debug output.",
+        version = { "SSL Handshake Debugger 1.6",
+                    "JVM: ${java.version} (${java.vendor} ${java.vm.name} ${java.vm.version})",
+                    "OS: ${os.name} ${os.version} ${os.arch}"
                 },
-        sortOptions = false, 
+        sortOptions = false,
         usageHelpAutoWidth = true,
         descriptionHeading = "%nDescription:%n%n",
         optionListHeading = "%nParameters:%n",
@@ -29,10 +28,13 @@ public class SSLDebugCommand implements Callable<Integer> {
     @Parameters(description = "mode to run, client or server", defaultValue = "client")
     private String mode;
 
-    @Option(names = { "-server", "-s" }, required = true, description = "ip or host to bind or call")
+    @Option(names = { "-server", "-s" }, description = "ip or host to bind or call")
     private String server;
 
-    @Option(names = { "--port", "-p" }, required = true, description = "port to listen or be hit")
+    @Option(names = { "-url", "-u" }, description = "url to be called")
+    private String url;
+
+    @Option(names = { "--port", "-p" }, description = "port to listen or be hit")
     private int port;
 
     @Option(names = { "--ciphers", "-c" }, description = "enabled cipher suites(e.g TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)", defaultValue = "")
@@ -72,6 +74,7 @@ public class SSLDebugCommand implements Callable<Integer> {
 
         sslCliParams.setMode(mode);
         sslCliParams.setServer(server);
+        sslCliParams.setUrl(url);
         sslCliParams.setPort(port);
         sslCliParams.setCiphers(ciphers);
         sslCliParams.setFileName(fileName);

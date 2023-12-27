@@ -9,6 +9,7 @@ public class SslCliParams {
 
     private String mode;
     private String server;
+    private String url;
     private int port;
     private String ciphers;
     private String fileName;
@@ -22,6 +23,7 @@ public class SslCliParams {
     public SslCliParams() {
         this.mode = "";
         this.server = "";
+        this.url = "";
         this.port = 0;
         this.ciphers = "";
         this.fileName = "";
@@ -53,6 +55,14 @@ public class SslCliParams {
 
     public void setServer(String server) {
         this.server = server;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public int getPort() {
