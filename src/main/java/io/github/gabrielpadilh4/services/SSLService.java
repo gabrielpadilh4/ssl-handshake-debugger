@@ -13,6 +13,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
 import javax.net.ServerSocketFactory;
 import javax.net.ssl.SSLServerSocket;
@@ -127,7 +128,7 @@ public class SSLService {
             Server server = parseSslCliParams(sslCliParams);
 
             if (sslCliParams.getMode().equals("client")) {
-                if (!sslCliParams.getUrl().isBlank()) {
+                if (Objects.nonNull(sslCliParams.getUrl()) && !sslCliParams.getUrl().isBlank()) {
                     openUrlSocket(sslCliParams.getUrl());
                     return;
                 }
