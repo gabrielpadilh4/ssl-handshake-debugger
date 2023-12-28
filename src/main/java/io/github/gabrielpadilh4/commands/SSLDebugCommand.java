@@ -70,21 +70,21 @@ public class SSLDebugCommand implements Callable<Integer> {
     @Override
     public Integer call() throws Exception {
 
-        SslCliParams sslCliParams = new SslCliParams();
-
-        sslCliParams.setMode(mode);
-        sslCliParams.setServer(server);
-        sslCliParams.setUrl(url);
-        sslCliParams.setPort(port);
-        sslCliParams.setCiphers(ciphers);
-        sslCliParams.setFileName(fileName);
-        sslCliParams.setEnabledProtocols(protocols);
-        sslCliParams.setTruststore(truststore);
-        sslCliParams.setTruststorePassword(truststorePassword);
-        sslCliParams.setKeystore(keystore);
-        sslCliParams.setKeystorePassword(keystorePassword);
-        sslCliParams.setAllDebug(allJavaxNetDebug);
-
+        SslCliParams sslCliParams = SslCliParams.create()
+        		.mode(mode)
+        		.server(server)
+        		.url(url)
+        		.port(port)
+        		.ciphers(ciphers)
+        		.fileName(fileName)
+        		.enabledProtocols(protocols)
+        		.truststore(truststore)
+        		.truststorePassword(truststorePassword)
+        		.keystore(keystore)
+        		.keystorePassword(keystorePassword)
+        		.allDebug(allJavaxNetDebug)
+        		.build();
+   
         SSLService.logSSLHandshake(sslCliParams);
 
         return 0;
