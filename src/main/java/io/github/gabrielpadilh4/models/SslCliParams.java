@@ -34,6 +34,25 @@ public class SslCliParams {
         this.truststorePassword = "";
         this.allDebug = false;
     }
+    
+    public SslCliParams(SslCliParamsBuilder builder) {
+        this.mode = builder.mode;
+        this.server = builder.server;
+        this.url = builder.url;
+        this.port = builder.port;
+        this.ciphers = builder.ciphers;
+        this.fileName = builder.fileName;
+        this.enabledProtocols = builder.enabledProtocols;
+        this.keystore = builder.keystore;
+        this.keystorePassword = builder.keystorePassword;
+        this.truststore = builder.truststore;
+        this.truststorePassword = builder.truststorePassword;
+        this.allDebug = builder.allDebug;
+    }
+    
+    public static SslCliParamsBuilder create() {
+    	return new SslCliParamsBuilder();
+    }
 
     public String getMode() {
         return mode;
