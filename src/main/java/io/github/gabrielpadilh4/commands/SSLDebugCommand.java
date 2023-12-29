@@ -14,7 +14,7 @@ import picocli.CommandLine.Parameters;
 @Command(name = "ssl-handshake-debugger",
         mixinStandardHelpOptions = true,
         description = "Command line application that tests SSL/TLS handshake as client or server and prints the javax.net.debug output.",
-        version = { "SSL Handshake Debugger 1.6",
+        version = { "SSL Handshake Debugger 1.7",
                     "JVM: ${java.version} (${java.vendor} ${java.vm.name} ${java.vm.version})",
                     "OS: ${os.name} ${os.version} ${os.arch}"
                 },

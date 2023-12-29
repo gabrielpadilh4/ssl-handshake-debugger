@@ -6,7 +6,8 @@
 
 ```sh
 $ ssl-handshake-debugger -h
-Usage: ssl-handshake-debugger [-ahv] [-c=<ciphers>] [-f=<fileName>] [-ks=<keystore>] [-ksp=<keystorePassword>] [-p=<port>] [-pr=<protocols>] [-s=<server>] [-ts=<truststore>] [-tsp=<truststorePassword>] [-u=<url>] <mode>
+Usage: ssl-handshake-debugger [-ahv] [-c=<ciphers>] [-f=<fileName>] [-ks=<keystore>] [-ksp=<keystorePassword>] [--openAIApiKey=<openAIApiKey>] [-p=<port>] [-pr=<protocols>] [-s=<server>] [-ts=<truststore>] [-tsp=<truststorePassword>]
+                              [-u=<url>] <mode>
 
 Description:
 
@@ -24,6 +25,7 @@ Parameters:
   -tsp, --truststorePassword=<truststorePassword> truststore password
   -ks, --keystore=<keystore>                      keystore path
   -ksp, --keystorePassword=<keystorePassword>     keystorePassword
+  --openAIApiKey=<openAIApiKey>                   OpenAI API Key (ChatGPT)
   -a, --all                                       use javax.net.debug=all instead of javax.net.debug=ssl:handshake:verbose
   -v, --version                                   display version info
   -h, --help                                      display this help message
