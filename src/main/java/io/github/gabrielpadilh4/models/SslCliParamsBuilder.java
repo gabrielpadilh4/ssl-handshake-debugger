@@ -19,7 +19,13 @@ public class SslCliParamsBuilder {
 	protected String truststore;
 	protected String truststorePassword;
 	protected boolean allDebug;
+	protected String openAiApiKey;
     
+	public SslCliParamsBuilder openAiApiKey(String openAiApiKey) {
+		this.openAiApiKey = Optional.ofNullable(openAiApiKey).orElse("");
+		return this;
+	}
+	
 	public SslCliParamsBuilder mode(String mode) {
 		this.mode = Optional.ofNullable(mode).orElse("");
 		return this;
