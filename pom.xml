@@ -18,6 +18,7 @@
 		<maven-compiler-plugin-version>3.12.0</maven-compiler-plugin-version>
 		<picocli.version>4.7.5</picocli.version>
 		<appassembler.version>1.10</appassembler.version>
+		<langchain.version>0.25.0</langchain.version>
 	</properties>
 
 	<dependencies>
@@ -25,6 +26,16 @@
 			<groupId>info.picocli</groupId>
 			<artifactId>picocli</artifactId>
 			<version>${picocli.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>dev.langchain4j</groupId>
+			<artifactId>langchain4j</artifactId>
+			<version>${langchain.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>dev.langchain4j</groupId>
+			<artifactId>langchain4j-open-ai</artifactId>
+			<version>${langchain.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -35,7 +46,8 @@
 				<artifactId>appassembler-maven-plugin</artifactId>
 				<version>${appassembler.version}</version>
 				<configuration>
-					<assembleDirectory>${project.build.directory}/ssl-handshake-debugger</assembleDirectory>
+					<assembleDirectory>
+						${project.build.directory}/ssl-handshake-debugger</assembleDirectory>
 					<programs>
 						<program>
 							<mainClass>io.github.gabrielpadilh4.Main</mainClass>

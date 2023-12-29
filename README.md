@@ -99,6 +99,50 @@ ssl-handshake-debugger -s example.com -p 443 -f output.txt client
 
 `-f output.txt`: Writes the handshake output to a file named 'output.txt'.
 
+### Using ChatGPT OpenAPI
+
+First you need to [create an API Key](https://platform.openai.com/api-keys) on OpenAPI, save it and run the following command:
+
+```{bash}
+ssl-handshake-debugger client -s self-signed.badssl.com -p 443 --openAIApiKey=YOUR_API_KEY
+```
+
+The result should be:
+
+The error message "PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target" typically occurs when the Java application is unable to establish a secure connection with a remote server due to an invalid or missing SSL certificate.
+
+To fix this issue, you can follow these steps:
+
+1. Identify the certificate authority (CA) that issued the SSL certificate for the remote server.
+2. Obtain the root and intermediate certificates from the CA.
+3. Import the root and intermediate certificates into the Java keystore.
+
+Here is a step-by-step guide:
+
+1. Identify the certificate authority (CA):
+   - Check the SSL certificate details in your web browser when accessing the remote server. Look for the "Issued by" or "Certificate Authority" information.
+   - Contact the server administrator or the CA to obtain the necessary certificates.
+
+2. Obtain the root and intermediate certificates:
+   - Visit the CA's website and search for their root and intermediate certificates.
+   - Download the certificates in PEM or DER format.
+
+3. Import the root and intermediate certificates into the Java keystore:
+   - Open a command prompt or terminal.
+   - Locate the Java installation directory and navigate to the "bin" folder.
+   - Run the following command to import the root certificate:
+     ```
+     keytool -import -alias root -keystore <path_to_java_home>/jre/lib/security/cacerts -file <path_to_root_certificate>
+     ```
+     Replace `<path_to_java_home>` with the actual path to your Java installation directory, and `<path_to_root_certificate>` with the path to the downloaded root certificate file.
+   - When prompted for the keystore password, enter the default password: "changeit".
+   - Confirm the import by typing "yes" when prompted.
+   - Repeat the above steps for each intermediate certificate, using a unique alias for each.
+
+4. Restart your Java application and try connecting to the remote server again. The error should no longer occur.
+
+Note: It's important to ensure that the root and intermediate certificates are obtained from a trusted source and are not tampered with.
+
 ## About
 
 Command line application built in Java that tests SSL/TLS handshake as client or server and prints the [javax.net.debug](https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/ReadDebug.html) output.

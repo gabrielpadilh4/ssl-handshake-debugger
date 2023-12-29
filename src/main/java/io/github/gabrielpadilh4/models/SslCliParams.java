@@ -18,6 +18,7 @@ public class SslCliParams {
     private String keystorePassword;
     private String truststore;
     private String truststorePassword;
+    private String openAiApiKey;
     private boolean allDebug;
 
     public SslCliParams() {
@@ -32,6 +33,7 @@ public class SslCliParams {
         this.keystorePassword = "";
         this.truststore = "";
         this.truststorePassword = "";
+        this.openAiApiKey = "";
         this.allDebug = false;
     }
     
@@ -48,6 +50,7 @@ public class SslCliParams {
         this.truststore = builder.truststore;
         this.truststorePassword = builder.truststorePassword;
         this.allDebug = builder.allDebug;
+        this.openAiApiKey = builder.openAiApiKey;
     }
     
     public static SslCliParamsBuilder create() {
@@ -155,4 +158,12 @@ public class SslCliParams {
     public void setAllDebug(boolean allDebug) {
         this.allDebug = allDebug;
     }
+
+	public String getOpenAiApiKey() {
+		return openAiApiKey;
+	}
+
+	public void setOpenAiApiKey(String openAiApiKey) {
+		this.openAiApiKey = openAiApiKey;
+	}
 }

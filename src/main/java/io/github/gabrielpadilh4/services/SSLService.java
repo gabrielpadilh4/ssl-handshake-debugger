@@ -140,7 +140,13 @@ public class SSLService {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+        	
+        	if(!sslCliParams.getOpenAiApiKey().isBlank()) {
+        		String response = LLMService.askChatGPT(e.getMessage(), sslCliParams.getOpenAiApiKey());
+        		System.out.println(response);
+        	} else {
+        		e.printStackTrace();
+        	}
         }
     }
 }

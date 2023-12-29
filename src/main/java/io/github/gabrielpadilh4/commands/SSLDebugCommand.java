@@ -57,6 +57,9 @@ public class SSLDebugCommand implements Callable<Integer> {
 
     @Option(names = { "--keystorePassword", "-ksp" }, description = "keystorePassword", defaultValue = "")
     private String keystorePassword;
+    
+    @Option(names = { "--openAIApiKey" }, description = "OpenAI API Key (ChatGPT)", defaultValue = "")
+    private String openAIApiKey;
 
     @Option(names = { "--all", "-a" }, description = "use javax.net.debug=all instead of javax.net.debug=ssl:handshake:verbose")
     private boolean allJavaxNetDebug;
@@ -83,6 +86,7 @@ public class SSLDebugCommand implements Callable<Integer> {
         		.keystore(keystore)
         		.keystorePassword(keystorePassword)
         		.allDebug(allJavaxNetDebug)
+        		.openAiApiKey(openAIApiKey)
         		.build();
    
         SSLService.logSSLHandshake(sslCliParams);
