@@ -17,7 +17,7 @@ Command line application that tests SSL/TLS handshake as client or server and pr
 Parameters:
   -s, -server=<server>                            ip or host to bind or call
   -u, -url=<url>                                  url to be called
-  -p, --port=<port>                               port to listen or be hit
+  -p, --port=<port>                               port to listen or be hit, default value is 443
   -c, --ciphers=<ciphers>                         enabled cipher suites(e.g TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)
   -f, --file=<fileName>                           filename to write the handshake output
   -pr, --protocols=<protocols>                    jvm ssl/tls enabled protocols list(e.g. TLSv1.2, TLSv1.3)

@@ -34,7 +34,7 @@ public class SSLDebugCommand implements Callable<Integer> {
     @Option(names = { "-url", "-u" }, description = "url to be called")
     private String url;
 
-    @Option(names = { "--port", "-p" }, description = "port to listen or be hit")
+    @Option(names = { "--port", "-p" }, description = "port to listen or be hit, default value is 443", defaultValue = "443")
     private int port;
 
     @Option(names = { "--ciphers", "-c" }, description = "enabled cipher suites(e.g TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)", defaultValue = "")
@@ -57,7 +57,7 @@ public class SSLDebugCommand implements Callable<Integer> {
 
     @Option(names = { "--keystorePassword", "-ksp" }, description = "keystorePassword", defaultValue = "")
     private String keystorePassword;
-    
+
     @Option(names = { "--openAIApiKey" }, description = "OpenAI API Key (ChatGPT)", defaultValue = "")
     private String openAIApiKey;
 
@@ -88,7 +88,7 @@ public class SSLDebugCommand implements Callable<Integer> {
         		.allDebug(allJavaxNetDebug)
         		.openAiApiKey(openAIApiKey)
         		.build();
-   
+
         SSLService.logSSLHandshake(sslCliParams);
 
         return 0;
