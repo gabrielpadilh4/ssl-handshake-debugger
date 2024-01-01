@@ -2,10 +2,12 @@ package io.github.gabrielpadilh4.services;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -140,10 +142,15 @@ public class SSLService {
             }
 
         } catch (Exception e) {
-        	
+
         	if(!sslCliParams.getOpenAiApiKey().isBlank()) {
         		String response = LLMService.askChatGPT(e.getMessage(), sslCliParams.getOpenAiApiKey());
         		System.out.println(response);
+        		try(PrintWriter pw = new PrintWriter("solution.md")) {
+        		    pw.println(response);
+        		} catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
         	} else {
         		e.printStackTrace();
         	}
